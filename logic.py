@@ -1,5 +1,5 @@
 from moviepy.editor import VideoFileClip
-#from audio2text import trans_audio
+from audio2text import trans_audio
 import threading
 import os
 def safe_extract_audio(video_file, audio_file):
