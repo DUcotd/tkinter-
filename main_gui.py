@@ -8,6 +8,12 @@ class MainWindow:
         self.main.title("视频音频转文字工具")
         self.main.geometry("600x350")
         
+        self.style = ttk.Style()
+        self.style.configure("LabelFrame", font=(None, 25))
+        self.style.configure("TButton", font=(None, 14))
+        self.style.configure("TLabel", font=(None, 14))
+        self.style.configure("TCombobox", font=(None, 14))
+
         self.frames = {
             'input_frame': self.__create_input_frame(),
             'model_frame': self.__create_model_frame(),
@@ -35,13 +41,14 @@ class MainWindow:
 
     #视频文件路径父框架
     def __create_input_frame(self):
-        input_frame = ttk.LabelFrame(self.main, text="视频文件路径", padding="13")
+        input_frame_title_label = ttk.Label(self.main, text="视频文件路径", font=(None, 14))
+        input_frame = ttk.LabelFrame(self.main, padding="13", labelwidget=input_frame_title_label)
         input_frame.grid(row=0, column=0, padx=20, pady=(20, 10), sticky="ew")
         return input_frame
     
     #视频文件路径标签
     def __create_video_path_label(self):
-        video_path_label = ttk.Label(self.frames['input_frame'], text="请输入视频文件路径：", font=(None, 14))
+        video_path_label = ttk.Label(self.frames['input_frame'], text="请输入视频文件路径：")
         video_path_label.grid(row=0, column=0, padx=(0, 10), sticky="w")
         return video_path_label
     
@@ -53,37 +60,39 @@ class MainWindow:
 
     #模型选择父框架
     def __create_model_frame(self):
-        model_frame = ttk.LabelFrame(self.main, text="模型选择", padding="13")
+        model_frame_title_label = ttk.Label(self.main, text="模型选择", font=(None, 14))
+        model_frame = ttk.LabelFrame(self.main, padding="13", labelwidget=model_frame_title_label)
         model_frame.grid(row=1, column=0, padx=20, pady=(10, 10), sticky="ew")
         return model_frame
     
     #模型选择标签
     def __create_model_select_label(self):
-        model_select_label = ttk.Label(self.frames['model_frame'], text="选择语音转文字模型：", font=(None, 14))
+        model_select_label = ttk.Label(self.frames['model_frame'], text="选择语音转文字模型：")
         model_select_label.grid(row=0, column=0, padx=(0, 10), sticky="w")
         return model_select_label
     
     #模型选择下拉框
     def __create_model_select_combobox(self):
-        model_select_combobox = ttk.Combobox(self.frames["model_frame"], font=(None, 14), values=get_model_name("./models"))
+        model_select_combobox = ttk.Combobox(self.frames["model_frame"], values=get_model_name("./models"))
         model_select_combobox.grid(row=0, column=1, padx=(0, 10), sticky="ew")
         return model_select_combobox
     
     #转换操作父框架
     def __create_trans_frame(self):
-        trans_frame = ttk.LabelFrame(self.main, text="转换操作", padding="10")
+        trans_frame_title_label = ttk.Label(self.main, text="转换操作", font=(None, 14))
+        trans_frame = ttk.LabelFrame(self.main, padding="10", labelwidget=trans_frame_title_label)
         trans_frame.grid(row=2, column=0, padx=20, pady=20, sticky="ew")
         return trans_frame
     
     #设备选择标签
     def __create__device_select_label(self):
-        device_select_label = ttk.Label(self.frames['trans_frame'], text="选择设备：", font=(None, 14))
+        device_select_label = ttk.Label(self.frames['trans_frame'], text="选择设备：")
         device_select_label.grid(row=0, column=0, padx=(0, 10), sticky="w")
         return device_select_label
     
     #设备选择下拉框
     def __create_device_select_combobox(self):
-        device_select_combobox = ttk.Combobox(self.frames["trans_frame"], values=["CPU", "CUDA"], font=(None, 14), width=10)
+        device_select_combobox = ttk.Combobox(self.frames["trans_frame"], values=["CPU", "CUDA"], width=10)
         device_select_combobox.grid(row=0, column=1, padx=(0, 10), sticky="ew")
         return device_select_combobox
     
@@ -123,5 +132,6 @@ class MainWindow:
         return translation_Checkbutton
 """
 
-def main():
+
+if __name__ == '__main__':
     win = MainWindow()
